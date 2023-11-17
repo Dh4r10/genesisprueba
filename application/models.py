@@ -71,11 +71,20 @@ class Encuesta(models.Model):
     class Meta:
         db_table = 'encuesta'
 
+class Perfil(models.Model):
+    id_perfil = models.AutoField(primary_key=True)
+    descripcion = models.CharField(max_length=250)
+    estado = models.BooleanField(default=True)
+
+    class Meta: 
+        db_table = 'perfil'
+
 class Permisos(models.Model):
     id_permiso = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=250)
     estado = models.BooleanField(default=True)
     id_modulo = models.ForeignKey(Modulos, models.DO_NOTHING, db_column='id_modulo')
+    id_perfil = models.ForeignKey(Perfil, models.DO_NOTHING, db_column='id_perfil', default=None)
 
     class Meta:
         db_table = 'permisos'
@@ -97,15 +106,6 @@ class Preguntas(models.Model):
 
     class Meta:
         db_table = 'preguntas'
-
-class Perfil(models.Model):
-    id_perfil = models.AutoField(primary_key=True)
-    descripcion = models.CharField(max_length=250)
-    estado = models.BooleanField(default=True)
-    id_permiso = models.ForeignKey(Permisos, models.DO_NOTHING, db_column='id_permiso')
-
-    class Meta: 
-        db_table = 'perfil'
 
 class Alternativas(models.Model):
     id_alternativa = models.AutoField(primary_key=True)
@@ -172,3 +172,6 @@ class Detalle(models.Model):
 
     class Meta:
         db_table = 'detalle'
+
+#VIEWS
+        
